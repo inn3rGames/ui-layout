@@ -34,6 +34,10 @@ body {
 
 #avatar {
   position: fixed;
+  left: 20%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 100px;
   height: 100px;
   background-color: #d7eae4;
@@ -46,6 +50,18 @@ body {
   background-repeat: no-repeat;
   background-position: center center;
   transform: scaleX(-1);
+}
+
+#utility {
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  bottom: 75%;
+  left: 75%;
+  background-image: url(./assets/icon/utility-more.png);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
 }
 
 #top-right {
