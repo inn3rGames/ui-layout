@@ -256,6 +256,7 @@ body {
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center center;
+  filter: invert(1);
 }
 
 #paper-text {
@@ -313,6 +314,7 @@ body {
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center center;
+  filter: invert(1);
 }
 
 #books-text {
