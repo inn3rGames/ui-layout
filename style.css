@@ -186,7 +186,7 @@ body {
   width: 100px;
   height: 50px;
   margin: 5px;
-  background-color: #00AAA0;
+  background-color: #00aaa0;
   border-style: solid;
   border-radius: 5px;
   border-width: 2px;
@@ -196,7 +196,7 @@ body {
 
 #left-button-text {
   color: #ffffff;
-   font-size: 28px;
+  font-size: 28px;
   font-weight: bold;
   text-align: center;
 }
@@ -213,7 +213,7 @@ body {
   width: 100px;
   height: 50px;
   margin: 5px;
-  background-color: #FFA97D;
+  background-color: #ffa97d;
   border-style: solid;
   border-radius: 5px;
   border-width: 2px;
