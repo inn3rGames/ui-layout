@@ -53,6 +53,7 @@ body {
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center center;
+  transform: scaleX(-1);
 }
 
 #center-meter {
@@ -156,21 +157,83 @@ body {
 
 #item-spark-row {
   position: absolute;
-  bottom: 18%;
+  bottom: 22%;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
 .spark {
-  width: 30px;
-  height: 30px;
+  width: 22px;
+  height: 22px;
   margin: 5px;
   background-image: url(./assets/icon/spark-empty.png);
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center center;
   mix-blend-mode: screen;
+}
+
+#item-buttons {
+  position: absolute;
+  bottom: 2%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#left-button {
+  width: 100px;
+  height: 50px;
+  margin: 5px;
+  background-color: #00AAA0;
+  border-style: solid;
+  border-radius: 5px;
+  border-width: 2px;
+  border-color: #ffffff;
+  overflow: hidden;
+}
+
+#left-button-text {
+  color: #ffffff;
+   font-size: 28px;
+  font-weight: bold;
+  text-align: center;
+}
+
+#left-button-shadow {
+  position: relative;
+  width: 100%;
+  height: 10px;
+  bottom: -20%;
+  background-color: rgba(0, 0, 0, 0.15);
+}
+
+#right-button {
+  width: 100px;
+  height: 50px;
+  margin: 5px;
+  background-color: #FFA97D;
+  border-style: solid;
+  border-radius: 5px;
+  border-width: 2px;
+  border-color: #ffffff;
+  overflow: hidden;
+}
+
+#right-button-text {
+  color: #000000;
+  font-size: 28px;
+  font-weight: bold;
+  text-align: center;
+}
+
+#right-button-shadow {
+  position: relative;
+  width: 100%;
+  height: 10px;
+  bottom: -20%;
+  background-color: rgba(0, 0, 0, 0.15);
 }
 
 #middle {
