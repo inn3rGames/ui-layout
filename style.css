@@ -132,12 +132,45 @@ body {
 }
 
 #item-card {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   position: absolute;
   width: 250px;
   height: 375px;
   bottom: 35%;
-  background-color: #3F2D3F;
+  background-color: #3f2d3f;
   border-radius: 15px;
+}
+
+#item-image {
+  position: absolute;
+  width: 300px;
+  height: 250px;
+  top: 2%;
+  background-image: url(./assets/images/SampleItem-c.png);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+
+#item-spark-row {
+  position: absolute;
+  bottom: 18%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.spark {
+  width: 30px;
+  height: 30px;
+  margin: 5px;
+  background-image: url(./assets/icon/spark-empty.png);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  mix-blend-mode: screen;
 }
 
 #middle {
