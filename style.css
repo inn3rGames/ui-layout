@@ -342,3 +342,46 @@ body {
   font-size: 16px;
   text-align: center;
 }
+
+
+@media (max-height: 850px) and (orientation:landscape) {
+  #focus-bar{
+    height: 85%;
+  }
+
+  #navigation-row{
+    height: 70px;
+  }
+
+  #paper-icon{
+    width: 40px;
+    height: 40px;
+  }
+
+  #paper-text{
+    font-size: 14px;
+  }
+
+  #clothing-icon{
+    width: 40px;
+    height: 40px;
+  }
+
+  #clothing-text{
+    font-size: 15px;
+  }
+
+  #books-icon{
+    width: 40px;
+    height: 40px;
+  }
+
+  #books-text{
+    font-size: 14px;
+  }
+
+  #item-card {
+    background: blue;
+    display: none;
+  }
+}
