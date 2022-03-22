@@ -150,6 +150,16 @@ body {
   width: 100%;
   height: 60%;
   z-index: 3;
+  cursor: grab;
+}
+
+#carousel {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
 }
 
 .item-card {
@@ -161,11 +171,13 @@ body {
   height: 375px;
   background-color: #3f2d3f;
   border-radius: 15px;
+  margin-left: 15px;
+  margin-right: 15px;
 }
 
 .item-card-small{
-  transform: scale(75%);
-  opacity: 0.5;
+  /* transform: scale(75%);
+  opacity: 0.5; */
 }
 
 .item-image {
@@ -427,6 +439,8 @@ body {
     width: 25vh;
     height: 37vh;
     border-radius: 1.5vh;
+    margin-left: 1.5vh;
+    margin-right: 1.5vh;
   }
 
   .item-image {
