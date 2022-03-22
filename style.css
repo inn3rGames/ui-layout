@@ -182,11 +182,19 @@ body {
   width: 22px;
   height: 22px;
   margin: 5px;
-  background-image: url(./assets/icon/spark-empty.png);
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center center;
+}
+
+.off {
+  background-image: url(./assets/icon/spark-empty.png);
   mix-blend-mode: screen;
+}
+
+.on {
+  background-image: url(./assets/icon/spark-full.png);
+  mix-blend-mode: normal;
 }
 
 #item-buttons {
@@ -205,6 +213,7 @@ body {
   border-width: 2px;
   border-color: #ffffff;
   overflow: hidden;
+  user-select: none;
 }
 
 #left-button-text {
@@ -234,6 +243,7 @@ body {
   border-width: 2px;
   border-color: #ffffff;
   overflow: hidden;
+  user-select: none;
 }
 
 #right-button-text {
