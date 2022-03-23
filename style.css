@@ -532,3 +532,9 @@ body {
     font-size: 2vh;
   }
 }
+
+@media (hover: none) {
+  .item-spark-row {
+    cursor: auto;
+  }
+}
