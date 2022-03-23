@@ -33,37 +33,37 @@ window.onload = () => {
         }
     }
 
-    let middle = document.getElementById("middle");
+    let container = document.getElementById("carousel-container");
     let carousel = document.getElementById("carousel");
     let isPointerDown = false;
     let pointerX;
 
-    middle.addEventListener("pointerdown", (e) => {
+    container.addEventListener("pointerdown", (e) => {
         isPointerDown = true;
-        pointerX = e.pageX - carousel.offsetLeft;
-        middle.style.cursor = "grabbing";
+        pointerX = e.clientX - carousel.offsetLeft;
+        container.style.cursor = "grabbing";
     });
 
-    middle.addEventListener("pointerleave", (e) => {
+    container.addEventListener("pointerleave", (e) => {
         isPointerDown = false;
-    })
-
-    middle.addEventListener("pointerup", (e) => {
-        isPointerDown = false;
-        middle.style.cursor = "grab";
     });
 
-    middle.addEventListener("pointermove", (e) => {
+    container.addEventListener("pointerup", (e) => {
+        isPointerDown = false;
+        container.style.cursor = "grab";
+    });
+
+    container.addEventListener("pointermove", (e) => {
         if (!isPointerDown === true) {
             return;
         }
         e.preventDefault();
 
-        let distance =  pointerX - e.pageX ;
-        carousel.style.left = `${(-distance)}px`;
+        let distance = pointerX - e.clientX;
+        carousel.style.left = `${-distance}px`;
     });
 
-    middle.addEventListener("contextmenu", (e) => {
+    container.addEventListener("contextmenu", (e) => {
         e.preventDefault();
     });
 };

@@ -76,7 +76,7 @@ body {
   transform: scaleX(-1);
 }
 
-#center-meter {
+#meter-center {
   position: fixed;
   display: flex;
   align-items: center;
@@ -150,6 +150,15 @@ body {
   width: 100%;
   height: 60%;
   z-index: 3;
+}
+
+#carousel-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
   cursor: grab;
 }
 
@@ -287,7 +296,7 @@ body {
   z-index: 1;
 }
 
-#center-navigation-row {
+#navigation-row-center {
   display: flex;
   align-items: center;
   justify-content: center;
