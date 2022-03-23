@@ -40,11 +40,16 @@ window.onload = () => {
 
     middle.addEventListener("pointerdown", (e) => {
         isPointerDown = true;
-        pointerX = e.offsetX - carousel.offsetLeft;
+        pointerX = e.pageX - carousel.offsetLeft;
         middle.style.cursor = "grabbing";
     });
 
+    middle.addEventListener("pointerleave", (e) => {
+        isPointerDown = false;
+    })
+
     middle.addEventListener("pointerup", (e) => {
+        isPointerDown = false;
         middle.style.cursor = "grab";
     });
 
@@ -53,11 +58,9 @@ window.onload = () => {
             return;
         }
         e.preventDefault();
-        carousel.style.left = `${e.offsetX - pointerX}px`;
-    });
 
-    window.addEventListener("pointerup", () => {
-        isPointerDown = false;
+        let distance =  pointerX - e.pageX ;
+        carousel.style.left = `${(-distance)}px`;
     });
 
     middle.addEventListener("contextmenu", (e) => {
