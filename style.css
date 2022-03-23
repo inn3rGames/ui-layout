@@ -157,7 +157,6 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 100%;
   height: 100%;
   cursor: grab;
 }
@@ -167,15 +166,10 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 100%;
   height: 100%;
 }
 
 .item-card {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
   width: 250px;
   height: 375px;
   background-color: #3f2d3f;
@@ -184,18 +178,21 @@ body {
   margin-right: 15px;
 }
 
-.item-card-small{
+.item-card-small {
   /* transform: scale(75%);
   opacity: 0.5; */
 }
 
 .item-image {
-  width: 300px;
+  width: 200px;
   height: 250px;
   background-image: url(./assets/images/SampleItem-c.png);
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center center;
+  margin-left:auto;
+  margin-right: auto;
+  margin-top: 10px;
 }
 
 .item-spark-row {
@@ -228,6 +225,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+  margin-top: 15px;
 }
 
 .left-button {
@@ -447,21 +445,27 @@ body {
 
   .item-card {
     width: 25vh;
-    height: 37vh;
+    height: 37.5vh;
     border-radius: 1.5vh;
     margin-left: 1.5vh;
     margin-right: 1.5vh;
   }
 
   .item-image {
-    width: 30vh;
+    width: 20vh;
     height: 25vh;
-    background-size: contain;
+    background-size: cover;
+    margin-top: 1vh;
   }
 
   .spark {
-    width: 2vh;
-    height: 2vh;
+    width: 2.2vh;
+    height: 2.2vh;
+    margin: 0.5vh;
+  }
+
+  .item-buttons{
+    margin-top: 1.5vh;
   }
 
   .left-button {
