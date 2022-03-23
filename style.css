@@ -5,7 +5,7 @@
   font-weight: normal;
   font-style: normal;
 }
-*{
+* {
   font-family: "Custom Font";
 }
 
@@ -14,6 +14,27 @@ body {
   padding: 0;
   overflow: hidden;
   background-color: #d7eae4;
+}
+
+body::after {
+  position: absolute;
+  width: 0px;
+  height: 0px;
+  z-index: -1;
+  content: url(./assets/images/pc-image.png)
+    url(./assets/icon/utility-more-green.png)
+    url(./assets/icon/utility-close.png)
+    url(./assets/icon/emoticon-happy.png)
+    url(./assets/images/SampleItem-d.png)
+    url(./assets/images/SampleItem-c.png)
+    url(./assets/images/SampleItem-b.png)
+    url(./assets/images/SampleItem.png)
+    url(./assets/icon/spark-empty.png)
+    url(./assets/icon/spark-full.png)
+    url(./assets/icon/navigation-papers-b.png)
+    url(./assets/icon/navigation-clothing.png)
+    url(./assets/icon/navigation-books-b.png);
+    visibility: hidden;
 }
 
 #main-container {
