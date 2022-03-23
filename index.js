@@ -33,7 +33,7 @@ window.onload = () => {
         for (let i = 0; i < sparks.length; i++) {
             let spark = sparks[i];
             let sparkIndex = sparks.indexOf(spark);
-            spark.addEventListener("pointerdown", () => {
+            spark.addEventListener("mousedown", () => {
                 if (spark.className === disabled) {
                     enableSparks(sparkIndex);
                 } else {
@@ -50,28 +50,58 @@ window.onload = () => {
     let startX;
     let carouselStartX;
 
-    container.addEventListener("pointerdown", (e) => {
+    container.addEventListener("mousedown", (e) => {
         isPointerDown = true;
         startX = e.clientX;
         carouselStartX = carousel.offsetLeft;
         container.style.cursor = "grabbing";
     });
 
-    container.addEventListener("pointerleave", (e) => {
+    container.addEventListener("mouseleave", (e) => {
         isPointerDown = false;
+        container.style.cursor = "grab";
     });
 
-    container.addEventListener("pointerup", (e) => {
+    container.addEventListener("mouseup", (e) => {
         isPointerDown = false;
         container.style.cursor = "grab";
         console.log(`Moved ${carousel.offsetLeft - carouselStartX}px`);
     });
 
-    container.addEventListener("pointermove", (e) => {
+    container.addEventListener("mousemove", (e) => {
         e.preventDefault();
 
         if (isPointerDown === true) {
             let distance = startX - e.clientX;
+            carousel.style.left = `${carouselStartX - distance}px`;
+        } else {
+            return;
+        }
+    });
+
+    container.addEventListener("touchstart", (e) => {
+        isPointerDown = true;
+        startX = e.touches[0].clientX;
+        carouselStartX = carousel.offsetLeft;
+        container.style.cursor = "grabbing";
+    });
+
+    container.addEventListener("touchcancel", (e) => {
+        isPointerDown = false;
+        container.style.cursor = "grab";
+    });
+
+    container.addEventListener("touchend", (e) => {
+        isPointerDown = false;
+        container.style.cursor = "grab";
+        console.log(`Moved ${carousel.offsetLeft - carouselStartX}px`);
+    });
+
+    container.addEventListener("touchmove", (e) => {
+        e.preventDefault();
+
+        if (isPointerDown === true) {
+            let distance = startX - e.touches[0].clientX;
             carousel.style.left = `${carouselStartX - distance}px`;
         } else {
             return;
