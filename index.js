@@ -3,10 +3,10 @@ window.onload = () => {
     let images = Array.from(document.getElementsByClassName("item-image"));
 
     let imagesLocations = [
-        "url(./assets/images/SampleItem-b.png)",
-        "url(./assets/images/SampleItem-c.png)",
-        "url(./assets/images/SampleItem-d.png)",
-        "url(./assets/images/SampleItem.png)",
+      "url(./assets/images/SampleItem-d.png)",
+      "url(./assets/images/SampleItem-c.png)",
+      "url(./assets/images/SampleItem-b.png)",
+      "url(./assets/images/SampleItem.png)",
     ];
 
     for (let i = 0; i < cards.length; i++) {
