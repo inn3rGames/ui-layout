@@ -104,11 +104,11 @@ window.onload = () => {
        
 
         if (cards[cardIndex - 1] !== undefined) {
-             cards[cardIndex - 1].className = "item-card item-card-small move";
+             cards[cardIndex - 1].className = "item-card small move";
         }
 
         if (cards[cardIndex + 1] !== undefined) {
-          cards[cardIndex + 1].className = "item-card item-card-small move";
+          cards[cardIndex + 1].className = "item-card small move";
         }
 
         //console.log(cardIndex);

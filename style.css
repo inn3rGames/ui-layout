@@ -215,7 +215,7 @@ body::after {
    transition: all 0.25s;
 }
 
-.item-card-small {
+.small {
   transform: scale(75%);
   opacity: 0.5; 
 }
