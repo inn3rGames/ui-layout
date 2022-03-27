@@ -49,20 +49,18 @@ window.onload = () => {
     let isPointerDown = false;
     let startX;
     let carouselStartX;
+    let cardIndex = 0;
 
     function down(currentPointerX) {
         isPointerDown = true;
         startX = currentPointerX;
         carouselStartX = parseFloat(window.getComputedStyle(carousel).left);
-        console.log(carouselStartX);
         container.style.cursor = "grabbing";
-        carousel.className = "";
     }
 
     function leave() {
         isPointerDown = false;
         container.style.cursor = "grab";
-        computeSwipe();
     }
 
     function computeSwipe() {
@@ -70,26 +68,30 @@ window.onload = () => {
         let swipeDistance = carouselCurrentX - carouselStartX;
         let cardWidth = parseFloat(window.getComputedStyle(cards[0]).width);
         let cardMargin = parseFloat(window.getComputedStyle(cards[0]).marginLeft);
+        let cardTotalWidth = cardWidth + 2 * cardMargin;
         console.log(`Moved ${swipeDistance}px`);
 
         if (Math.abs(swipeDistance) >= cardWidth / 2) {
             console.log("Swiped !");
             if (swipeDistance > 0) {
-                carousel.style.left = `${carouselStartX + (cardWidth + 2 * cardMargin)
-                    }px`;
+                carousel.style.left = `${carouselStartX + cardTotalWidth}px`;
                 carousel.className = "move";
                 console.log("Right");
+                cardIndex = cardIndex + 1;
             } else {
-                carousel.style.left = `${carouselStartX - (cardWidth + 2 * cardMargin)
-                    }px`;
+                carousel.style.left = `${carouselStartX - cardTotalWidth}px`;
                 carousel.className = "move";
                 console.log("Left");
+                cardIndex = cardIndex - 1;
             }
         } else {
             console.log("Did not swipe!");
             carousel.style.left = `${carouselStartX}px`;
             carousel.className = "move";
+            cardIndex = cardIndex;
         }
+
+        console.log(cardIndex);
     }
 
     function up() {
@@ -105,6 +107,16 @@ window.onload = () => {
         } else {
             return;
         }
+    }
+
+    function end() {
+        carousel.className = "";
+        let cardWidth = parseFloat(window.getComputedStyle(cards[0]).width);
+        let cardMargin = parseFloat(
+          window.getComputedStyle(cards[0]).marginLeft
+        );
+        let cardTotalWidth = cardWidth + 2 * cardMargin;
+        carousel.style.left = `${cardIndex * cardTotalWidth}px`;
     }
 
     container.addEventListener("mousedown", (e) => {
@@ -137,5 +149,9 @@ window.onload = () => {
 
     container.addEventListener("contextmenu", (e) => {
         e.preventDefault();
+    });
+
+    container.addEventListener("transitionend", (e) => {
+        end();
     });
 };
