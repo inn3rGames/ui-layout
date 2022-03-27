@@ -186,9 +186,7 @@ body::after {
 }
 
 #carousel-container {
-  position: relative;
-  display: flex;
-  align-items: center;
+  position: absolute;
   width: 500px;
   height: 100%;
   cursor: grab;
@@ -201,7 +199,7 @@ body::after {
   align-items: center;
   justify-content: center;
   height: 100%;
- /*  left: 80px; */
+  margin-left: 110px;
 }
 
 .item-card {
@@ -488,7 +486,7 @@ body::after {
   }
 
   #carousel {
-    /*  left: 11vh;  */
+    margin-left: 11vh;
   }
 
   .item-card {
