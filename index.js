@@ -154,4 +154,8 @@ window.onload = () => {
     container.addEventListener("transitionend", (e) => {
         end();
     });
+
+    window.addEventListener("resize", (e) => {
+        end();
+    })
 };
