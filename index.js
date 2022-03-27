@@ -46,13 +46,6 @@ window.onload = () => {
     let container = document.getElementById("carousel-container");
     let carousel = document.getElementById("carousel");
 
-    /* let globalOffset = cards[0].offsetWidth * (cards.length - 4);
-        carousel.style.left = `${
-           - parseInt(window.getComputedStyle(cards[0]).marginLeft)/2
-        }px`;
-        console.log(cards[0].offsetWidth + " px", parseInt(window.getComputedStyle(cards[0]).marginLeft));
-        console.log(globalOffset); */
-
     let isPointerDown = false;
     let startX;
     let carouselStartX;
@@ -73,9 +66,7 @@ window.onload = () => {
     }
 
     function computeSwipe() {
-        let carouselCurrentX = parseFloat(
-          window.getComputedStyle(carousel).left
-        );
+        let carouselCurrentX = parseFloat(window.getComputedStyle(carousel).left);
         let swipeDistance = carouselCurrentX - carouselStartX;
         let cardWidth = parseFloat(window.getComputedStyle(cards[0]).width);
         let cardMargin = parseFloat(window.getComputedStyle(cards[0]).marginLeft);
@@ -84,11 +75,13 @@ window.onload = () => {
         if (Math.abs(swipeDistance) >= cardWidth / 2) {
             console.log("Swiped !");
             if (swipeDistance > 0) {
-                carousel.style.left = `${carouselStartX + (cardWidth + 2 * cardMargin)}px`;
+                carousel.style.left = `${carouselStartX + (cardWidth + 2 * cardMargin)
+                    }px`;
                 carousel.className = "move";
                 console.log("Right");
             } else {
-                carousel.style.left = `${carouselStartX - (cardWidth + 2 * cardMargin)}px`;
+                carousel.style.left = `${carouselStartX - (cardWidth + 2 * cardMargin)
+                    }px`;
                 carousel.className = "move";
                 console.log("Left");
             }
