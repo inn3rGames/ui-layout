@@ -1,6 +1,4 @@
 window.onload = () => {
-    let cards = Array.from(document.getElementsByClassName("item-card"));
-    let images = Array.from(document.getElementsByClassName("item-image"));
 
     let imagesLocations = [
         "url(./assets/images/SampleItem-d.png)",
@@ -9,30 +7,46 @@ window.onload = () => {
         "url(./assets/images/SampleItem.png)",
     ];
 
-    for (let i = 0; i < cards.length; i++) {
-        images[i].style.backgroundImage = imagesLocations[i];
+    let cards = [];
 
-        let sparks = Array.from(cards[i].getElementsByClassName("spark"));
-        let enabled = "spark on";
-        let disabled = "spark off";
+    function createCard(imageURL) {
+        let itemCard = document.createElement("div");
+        itemCard.className = "item-card";
+        document.getElementById("carousel").appendChild(itemCard);
 
-        function enableSparks(sparkIndex) {
-            for (let i = 0; i < sparkIndex + 1; i++) {
-                let spark = sparks[i];
-                spark.className = enabled;
+        let itemImage = document.createElement("div");
+        itemImage.className = "item-image";
+        itemImage.style.backgroundImage = imageURL;
+        itemCard.appendChild(itemImage);
+
+        let itemSparkRow = document.createElement("div");
+        itemSparkRow.className = "item-spark-row";
+        itemCard.appendChild(itemSparkRow);
+
+        let sparks = [];
+        for (let i = 0; i < 4; i++) {
+            let spark = document.createElement("div");
+            spark.className = "spark off";
+            itemSparkRow.appendChild(spark);
+
+            let sparkIndex = i;
+            let enabled = "spark on";
+            let disabled = "spark off";
+
+            function enableSparks(sparkIndex) {
+                for (let i = 0; i < sparkIndex + 1; i++) {
+                    let spark = sparks[i];
+                    spark.className = enabled;
+                }
             }
-        }
 
-        function disableSparks(sparkIndex) {
-            for (let i = sparks.length - 1; i >= sparkIndex; i--) {
-                let spark = sparks[i];
-                spark.className = disabled;
+            function disableSparks(sparkIndex) {
+                for (let i = sparks.length - 1; i >= sparkIndex; i--) {
+                    let spark = sparks[i];
+                    spark.className = disabled;
+                }
             }
-        }
 
-        for (let i = 0; i < sparks.length; i++) {
-            let spark = sparks[i];
-            let sparkIndex = sparks.indexOf(spark);
             spark.addEventListener("mousedown", () => {
                 if (spark.className === disabled) {
                     enableSparks(sparkIndex);
@@ -40,8 +54,47 @@ window.onload = () => {
                     disableSparks(sparkIndex);
                 }
             });
+
+            sparks.push(spark);
         }
+
+        let itemButtons = document.createElement("div");
+        itemButtons.className = "item-buttons";
+        itemCard.appendChild(itemButtons);
+
+        let leftButton = document.createElement("div");
+        leftButton.className = "left-button";
+        itemButtons.appendChild(leftButton);
+
+        let leftButtonText = document.createElement("div");
+        leftButtonText.className = "left-button-text";
+        leftButtonText.textContent = "Keep"
+        leftButton.appendChild(leftButtonText);
+
+        let leftButtonShadow = document.createElement("div");
+        leftButtonShadow.className = "left-button-shadow";
+        leftButton.appendChild(leftButtonShadow);
+
+        let rightButton = document.createElement("div");
+        rightButton.className = "right-button";
+        itemButtons.appendChild(rightButton);
+
+        let rightButtonText = document.createElement("div");
+        rightButtonText.className = "right-button-text";
+        rightButtonText.textContent = "Discard";
+        rightButton.appendChild(rightButtonText);
+
+        let rightButtonShadow = document.createElement("div");
+        rightButtonShadow.className = "right-button-shadow";
+        rightButton.appendChild(rightButtonShadow);
+
+        cards.push(itemCard);
     }
+
+    for (let i = 0; i < imagesLocations.length; i++) {
+        createCard(imagesLocations[i]);
+    }
+
 
     let container = document.getElementById("carousel-container");
     let carousel = document.getElementById("carousel");
