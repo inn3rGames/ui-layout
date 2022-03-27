@@ -66,6 +66,9 @@ window.onload = () => {
     function computeSwipe() {
         let carouselCurrentX = parseFloat(window.getComputedStyle(carousel).left);
         let swipeDistance = carouselCurrentX - carouselStartX;
+        if (swipeDistance === 0) {
+            return;
+        }
         let cardWidth = parseFloat(window.getComputedStyle(cards[0]).width);
         let cardMargin = parseFloat(window.getComputedStyle(cards[0]).marginLeft);
         let cardTotalWidth = cardWidth + 2 * cardMargin;
