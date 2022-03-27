@@ -69,8 +69,8 @@ window.onload = () => {
         let cardWidth = parseFloat(window.getComputedStyle(cards[0]).width);
         let cardMargin = parseFloat(window.getComputedStyle(cards[0]).marginLeft);
         let cardTotalWidth = cardWidth + 2 * cardMargin;
-        console.log(`Moved ${swipeDistance}px`);
 
+        console.log(`Moved ${swipeDistance}px`);
         carousel.className = "move";
 
         if (Math.abs(swipeDistance) >= cardWidth / 2) {
@@ -100,7 +100,19 @@ window.onload = () => {
             carousel.style.left = `${carouselStartX}px`;
         }
 
-        console.log(cardIndex);
+        cards[cardIndex].className = "item-card move";
+       
+
+        if (cards[cardIndex - 1] !== undefined) {
+             cards[cardIndex - 1].className = "item-card item-card-small move";
+        }
+
+        if (cards[cardIndex + 1] !== undefined) {
+          cards[cardIndex + 1].className = "item-card item-card-small move";
+        }
+
+        //console.log(cardIndex);
+        //console.log(cards[cardIndex]);
     }
 
     function up() {

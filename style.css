@@ -216,8 +216,8 @@ body::after {
 }
 
 .item-card-small {
-  /* transform: scale(75%);
-  opacity: 0.5; */
+  transform: scale(75%);
+  opacity: 0.5; 
 }
 
 .item-image {
