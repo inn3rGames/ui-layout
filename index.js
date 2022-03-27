@@ -3,10 +3,10 @@ window.onload = () => {
     let images = Array.from(document.getElementsByClassName("item-image"));
 
     let imagesLocations = [
-      "url(./assets/images/SampleItem-d.png)",
-      "url(./assets/images/SampleItem-c.png)",
-      "url(./assets/images/SampleItem-b.png)",
-      "url(./assets/images/SampleItem.png)",
+        "url(./assets/images/SampleItem-d.png)",
+        "url(./assets/images/SampleItem-c.png)",
+        "url(./assets/images/SampleItem-b.png)",
+        "url(./assets/images/SampleItem.png)",
     ];
 
     for (let i = 0; i < cards.length; i++) {
@@ -46,6 +46,13 @@ window.onload = () => {
     let container = document.getElementById("carousel-container");
     let carousel = document.getElementById("carousel");
 
+    /* let globalOffset = cards[0].offsetWidth * (cards.length - 4);
+        carousel.style.left = `${
+           - parseInt(window.getComputedStyle(cards[0]).marginLeft)/2
+        }px`;
+        console.log(cards[0].offsetWidth + " px", parseInt(window.getComputedStyle(cards[0]).marginLeft));
+        console.log(globalOffset); */
+
     let isPointerDown = false;
     let startX;
     let carouselStartX;
@@ -55,17 +62,43 @@ window.onload = () => {
         startX = currentPointerX;
         carouselStartX = carousel.offsetLeft;
         container.style.cursor = "grabbing";
+        carousel.className = "";
     }
 
     function leave() {
         isPointerDown = false;
         container.style.cursor = "grab";
+        computeSwipe();
+    }
+
+    function computeSwipe() {
+        let swipeDistance = carousel.offsetLeft - carouselStartX;
+        let cardWidth = parseInt(window.getComputedStyle(cards[0]).width);
+        let cardMargin = parseInt(window.getComputedStyle(cards[0]).marginLeft);
+        console.log(`Moved ${swipeDistance}px`);
+
+        if (Math.abs(swipeDistance) >= cardWidth / 2) {
+            console.log("Swiped !");
+            if (swipeDistance > 0) {
+                carousel.style.left = `${carouselStartX + (cardWidth + 2 * cardMargin)}px`;
+                carousel.className = "move";
+                console.log("Right");
+            } else {
+                carousel.style.left = `${carouselStartX - (cardWidth + 2 * cardMargin)}px`;
+                carousel.className = "move";
+                console.log("Left");
+            }
+        } else {
+            console.log("Did not swipe!");
+            carousel.style.left = `${carouselStartX}px`;
+            carousel.className = "move";
+        }
     }
 
     function up() {
         isPointerDown = false;
         container.style.cursor = "grab";
-        console.log(`Moved ${carousel.offsetLeft - carouselStartX}px`);
+        computeSwipe();
     }
 
     function move(currentPointerX) {

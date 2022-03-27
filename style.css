@@ -189,17 +189,19 @@ body::after {
   position: relative;
   display: flex;
   align-items: center;
-  justify-content: center;
+  width: 500px;
   height: 100%;
   cursor: grab;
+  overflow: hidden;
 }
 
 #carousel {
-  position: relative;
+  position: absolute;
   display: flex;
   align-items: center;
   justify-content: center;
   height: 100%;
+ /*  left: 80px; */
 }
 
 .item-card {
@@ -209,6 +211,10 @@ body::after {
   border-radius: 15px;
   margin-left: 15px;
   margin-right: 15px;
+}
+
+.move {
+   transition: all 0.25s;
 }
 
 .item-card-small {
@@ -475,6 +481,14 @@ body::after {
 
   #tips-text {
     font-size: 1.4vh;
+  }
+
+  #carousel-container {
+    width: 50vh;
+  }
+
+  #carousel {
+    /*  left: 11vh;  */
   }
 
   .item-card {
