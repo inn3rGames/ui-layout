@@ -60,7 +60,8 @@ window.onload = () => {
     function down(currentPointerX) {
         isPointerDown = true;
         startX = currentPointerX;
-        carouselStartX = carousel.offsetLeft;
+        carouselStartX = parseFloat(window.getComputedStyle(carousel).left);
+        console.log(carouselStartX);
         container.style.cursor = "grabbing";
         carousel.className = "";
     }
@@ -72,9 +73,12 @@ window.onload = () => {
     }
 
     function computeSwipe() {
-        let swipeDistance = carousel.offsetLeft - carouselStartX;
-        let cardWidth = parseInt(window.getComputedStyle(cards[0]).width);
-        let cardMargin = parseInt(window.getComputedStyle(cards[0]).marginLeft);
+        let carouselCurrentX = parseFloat(
+          window.getComputedStyle(carousel).left
+        );
+        let swipeDistance = carouselCurrentX - carouselStartX;
+        let cardWidth = parseFloat(window.getComputedStyle(cards[0]).width);
+        let cardMargin = parseFloat(window.getComputedStyle(cards[0]).marginLeft);
         console.log(`Moved ${swipeDistance}px`);
 
         if (Math.abs(swipeDistance) >= cardWidth / 2) {
