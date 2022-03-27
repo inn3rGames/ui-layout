@@ -71,24 +71,33 @@ window.onload = () => {
         let cardTotalWidth = cardWidth + 2 * cardMargin;
         console.log(`Moved ${swipeDistance}px`);
 
+        carousel.className = "move";
+
         if (Math.abs(swipeDistance) >= cardWidth / 2) {
-            console.log("Swiped !");
             if (swipeDistance > 0) {
-                carousel.style.left = `${carouselStartX + cardTotalWidth}px`;
-                carousel.className = "move";
-                console.log("Right");
-                cardIndex = cardIndex + 1;
+                if (cardIndex > 0) {
+                    console.log("Swiped right!");
+                    carousel.style.left = `${carouselStartX + cardTotalWidth}px`;
+                    cardIndex = cardIndex - 1;
+                } else {
+                    console.log("Right limit reached!");
+                    carousel.style.left = `${carouselStartX}px`;
+                    cardIndex = 0;
+                }
             } else {
-                carousel.style.left = `${carouselStartX - cardTotalWidth}px`;
-                carousel.className = "move";
-                console.log("Left");
-                cardIndex = cardIndex - 1;
+                if (cardIndex < cards.length - 1) {
+                    console.log("Swiped left!");
+                    carousel.style.left = `${carouselStartX - cardTotalWidth}px`;
+                    cardIndex = cardIndex + 1;
+                } else {
+                    console.log("Left limit reached!");
+                    carousel.style.left = `${carouselStartX}px`;
+                    cardIndex = cards.length - 1;
+                }
             }
         } else {
             console.log("Did not swipe!");
             carousel.style.left = `${carouselStartX}px`;
-            carousel.className = "move";
-            cardIndex = cardIndex;
         }
 
         console.log(cardIndex);
@@ -112,11 +121,9 @@ window.onload = () => {
     function end() {
         carousel.className = "";
         let cardWidth = parseFloat(window.getComputedStyle(cards[0]).width);
-        let cardMargin = parseFloat(
-          window.getComputedStyle(cards[0]).marginLeft
-        );
+        let cardMargin = parseFloat(window.getComputedStyle(cards[0]).marginLeft);
         let cardTotalWidth = cardWidth + 2 * cardMargin;
-        carousel.style.left = `${cardIndex * cardTotalWidth}px`;
+        carousel.style.left = `${-cardIndex * cardTotalWidth}px`;
     }
 
     container.addEventListener("mousedown", (e) => {
@@ -157,5 +164,5 @@ window.onload = () => {
 
     window.addEventListener("resize", (e) => {
         end();
-    })
+    });
 };
