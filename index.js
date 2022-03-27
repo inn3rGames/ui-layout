@@ -49,7 +49,7 @@ window.onload = () => {
     let isPointerDown = false;
     let startX;
     let carouselStartX;
-    let cardIndex = 0;
+    let cardIndex = 1;
 
     function down(currentPointerX) {
         isPointerDown = true;
@@ -101,18 +101,12 @@ window.onload = () => {
         }
 
         cards[cardIndex].className = "item-card move";
-       
-
         if (cards[cardIndex - 1] !== undefined) {
-             cards[cardIndex - 1].className = "item-card small move";
+            cards[cardIndex - 1].className = "item-card small move";
         }
-
         if (cards[cardIndex + 1] !== undefined) {
-          cards[cardIndex + 1].className = "item-card small move";
+            cards[cardIndex + 1].className = "item-card small move";
         }
-
-        //console.log(cardIndex);
-        //console.log(cards[cardIndex]);
     }
 
     function up() {
@@ -130,13 +124,26 @@ window.onload = () => {
         }
     }
 
-    function end() {
+    function setCardsClass() {
+        for (let i = 0; i < cards.length; i++) {
+            if (i === cardIndex) {
+                cards[i].className = "item-card";
+            } else {
+                cards[i].className = "item-card small";
+            }
+        }
+    }
+
+    function positionCards() {
+        setCardsClass();
         carousel.className = "";
         let cardWidth = parseFloat(window.getComputedStyle(cards[0]).width);
         let cardMargin = parseFloat(window.getComputedStyle(cards[0]).marginLeft);
         let cardTotalWidth = cardWidth + 2 * cardMargin;
         carousel.style.left = `${-cardIndex * cardTotalWidth}px`;
     }
+
+    positionCards();
 
     container.addEventListener("mousedown", (e) => {
         down(e.clientX);
@@ -171,10 +178,10 @@ window.onload = () => {
     });
 
     container.addEventListener("transitionend", (e) => {
-        end();
+        positionCards();
     });
 
     window.addEventListener("resize", (e) => {
-        end();
+        positionCards();
     });
 };
