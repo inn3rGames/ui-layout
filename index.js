@@ -19,7 +19,7 @@ window.onload = () => {
 
     let sparksPerRow = 4;
 
-    function averageRating(ratings) {
+    function averageRating(ratings, firstRun) {
         localStorage.setItem("ratings", JSON.stringify(ratings));
 
         let ratingAverage = document.getElementById("rating-average-text");
@@ -40,7 +40,13 @@ window.onload = () => {
             ratingAverage.textContent = `${countRatings} card(s) rated.\nAverage sparks:    ${average}!`;
             percentage = Math.floor((average / sparksPerRow) * 100);
             emoticon.style.left = `${percentage - 50}%`;
-            emoticon.className = "move";
+            if (firstRun === true) {
+              emoticon.className = "";
+            }
+            else {
+              emoticon.className = "move";
+            }
+            
         }
 
         if (countRatings === 0) {
@@ -94,7 +100,7 @@ window.onload = () => {
                     } sparks!`
                 );
                 console.log("The updated ratings are:", ratings);
-                averageRating(ratings);
+                averageRating(ratings, false);
             }
 
             function disableSparks(sparkIndex) {
@@ -110,7 +116,7 @@ window.onload = () => {
                     }!`
                 );
                 console.log("The updated ratings are:", ratings);
-                averageRating(ratings);
+                averageRating(ratings, false);
             }
 
             spark.addEventListener("mousedown", () => {
@@ -161,7 +167,7 @@ window.onload = () => {
         createCard(imagesLocations[i], i);
     }
 
-    averageRating(ratings);
+    averageRating(ratings, true);
 
     let container = document.getElementById("carousel-container");
     let carousel = document.getElementById("carousel");
