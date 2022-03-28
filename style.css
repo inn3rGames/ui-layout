@@ -140,6 +140,13 @@ body::after {
   background-position: center center;
 }
 
+#rating-average{
+  position: absolute;
+  bottom: -33%;
+  text-align: center;
+  font-size: 20px;
+}
+
 #tips {
   position: fixed;
   display: flex;
@@ -451,6 +458,10 @@ body::after {
     height: 3vh;
   }
 
+  #meter-center {
+    height: 10vh;
+  }
+
   #meter {
     width: 26vh;
     height: 1.5vh;
@@ -462,6 +473,10 @@ body::after {
     width: 5.5vh;
     height: 5.5vh;
   }
+
+  #rating-average{
+    font-size: 2vh;
+}
 
   #tips {
     width: 20vh;

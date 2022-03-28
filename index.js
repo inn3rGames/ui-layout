@@ -1,5 +1,4 @@
 window.onload = () => {
-
     let imagesLocations = [
         "url(./assets/images/SampleItem-d.png)",
         "url(./assets/images/SampleItem-c.png)",
@@ -8,8 +7,30 @@ window.onload = () => {
     ];
 
     let cards = [];
+    let ratings = [];
+    function averageRating(ratings) {
+        let ratingAverage = document.getElementById("rating-average");
+        let ratingSum = 0;
+        let countRatings = 0;
+        let average = 0;
+        for (let i = 0; i < ratings.length; i++) {
+            if (ratings[i] > 0) {
+                ratingSum += ratings[i];
+                countRatings += 1;
+            }
+        }
 
-    function createCard(imageURL) {
+        if (countRatings > 0) {
+            average = Math.floor((ratingSum / countRatings) * 100) / 100;
+            ratingAverage.textContent = `Average sparks: ${average}!`;
+        }
+        
+        if (countRatings === 0) {
+            ratingAverage.textContent = "Rate a card!";
+        }
+    }
+
+    function createCard(imageURL, currentId) {
         let itemCard = document.createElement("div");
         itemCard.className = "item-card";
         document.getElementById("carousel").appendChild(itemCard);
@@ -22,6 +43,8 @@ window.onload = () => {
         let itemSparkRow = document.createElement("div");
         itemSparkRow.className = "item-spark-row";
         itemCard.appendChild(itemSparkRow);
+        itemSparkRow.currentId = currentId;
+        ratings.push(0);
 
         let sparks = [];
         for (let i = 0; i < 4; i++) {
@@ -38,6 +61,13 @@ window.onload = () => {
                     let spark = sparks[i];
                     spark.className = enabled;
                 }
+                ratings[itemSparkRow.currentId] = sparkIndex + 1;
+                console.log(
+                    `Rated card ${itemSparkRow.currentId + 1} with ${ratings[itemSparkRow.currentId]
+                    } sparks!`
+                );
+                console.log(ratings);
+                averageRating(ratings);
             }
 
             function disableSparks(sparkIndex) {
@@ -45,6 +75,13 @@ window.onload = () => {
                     let spark = sparks[i];
                     spark.className = disabled;
                 }
+                ratings[itemSparkRow.currentId] = sparkIndex;
+                console.log(
+                    `Rated card ${itemSparkRow.currentId + 1} with ${ratings[itemSparkRow.currentId]
+                    } sparks!`
+                );
+                console.log(ratings);
+                averageRating(ratings);
             }
 
             spark.addEventListener("mousedown", () => {
@@ -68,7 +105,7 @@ window.onload = () => {
 
         let leftButtonText = document.createElement("div");
         leftButtonText.className = "left-button-text";
-        leftButtonText.textContent = "Keep"
+        leftButtonText.textContent = "Keep";
         leftButton.appendChild(leftButtonText);
 
         let leftButtonShadow = document.createElement("div");
@@ -92,9 +129,10 @@ window.onload = () => {
     }
 
     for (let i = 0; i < imagesLocations.length; i++) {
-        createCard(imagesLocations[i]);
+        createCard(imagesLocations[i], i);
     }
 
+    averageRating(ratings);
 
     let container = document.getElementById("carousel-container");
     let carousel = document.getElementById("carousel");
