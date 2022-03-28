@@ -23,18 +23,14 @@ body::after {
   z-index: -1;
   content: url(./assets/images/pc-image.png)
     url(./assets/icon/utility-more-green.png)
-    url(./assets/icon/utility-close.png)
-    url(./assets/icon/emoticon-happy.png)
-    url(./assets/images/SampleItem-d.png)
-    url(./assets/images/SampleItem-c.png)
-    url(./assets/images/SampleItem-b.png)
-    url(./assets/images/SampleItem.png)
-    url(./assets/icon/spark-empty.png)
-    url(./assets/icon/spark-full.png)
+    url(./assets/icon/utility-close.png) url(./assets/icon/emoticon-happy.png)
+    url(./assets/images/SampleItem-d.png) url(./assets/images/SampleItem-c.png)
+    url(./assets/images/SampleItem-b.png) url(./assets/images/SampleItem.png)
+    url(./assets/icon/spark-empty.png) url(./assets/icon/spark-full.png)
     url(./assets/icon/navigation-papers-b.png)
     url(./assets/icon/navigation-clothing.png)
     url(./assets/icon/navigation-books-b.png);
-    visibility: hidden;
+  visibility: hidden;
 }
 
 #main-container {
@@ -132,6 +128,7 @@ body::after {
 }
 
 #emoticon {
+  position: relative;
   width: 55px;
   height: 55px;
   background-image: url(./assets/icon/emoticon-happy.png);
@@ -140,11 +137,18 @@ body::after {
   background-position: center center;
 }
 
-#rating-average{
-  position: absolute;
-  bottom: -33%;
+#rating-average {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 5%;
+  z-index: 2;
+}
+
+#rating-average-text {
   text-align: center;
   font-size: 20px;
+  white-space: pre-line;
 }
 
 #tips {
@@ -188,7 +192,7 @@ body::after {
   align-items: center;
   justify-content: center;
   width: 100%;
-  height: 60%;
+  height: 55%;
   z-index: 3;
 }
 
@@ -219,12 +223,12 @@ body::after {
 }
 
 .move {
-   transition: all 0.25s;
+  transition: all 0.25s;
 }
 
 .small {
   transform: scale(75%);
-  opacity: 0.5; 
+  opacity: 0.5;
 }
 
 .item-image {
@@ -474,9 +478,9 @@ body::after {
     height: 5.5vh;
   }
 
-  #rating-average{
+  #rating-average-text {
     font-size: 2vh;
-}
+  }
 
   #tips {
     width: 20vh;

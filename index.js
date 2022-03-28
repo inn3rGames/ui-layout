@@ -8,11 +8,15 @@ window.onload = () => {
 
     let cards = [];
     let ratings = [];
+    let sparksPerRow = 4;
+
     function averageRating(ratings) {
-        let ratingAverage = document.getElementById("rating-average");
+        let ratingAverage = document.getElementById("rating-average-text");
+        let emoticon = document.getElementById("emoticon");
         let ratingSum = 0;
         let countRatings = 0;
         let average = 0;
+        let percentage = 0;
         for (let i = 0; i < ratings.length; i++) {
             if (ratings[i] > 0) {
                 ratingSum += ratings[i];
@@ -22,11 +26,17 @@ window.onload = () => {
 
         if (countRatings > 0) {
             average = Math.floor((ratingSum / countRatings) * 100) / 100;
-            ratingAverage.textContent = `Average sparks: ${average}!`;
+            ratingAverage.textContent = `${countRatings} card(s) rated.\nAverage sparks:    ${average}!`;
+            percentage = Math.floor(((average - 1) / (sparksPerRow - 1)) * 100);
+            emoticon.style.left = `${percentage - 50}%`;
+            emoticon.className = "move";
         }
-        
+
         if (countRatings === 0) {
-            ratingAverage.textContent = "Rate a card!";
+            ratingAverage.textContent = "No card rated.\nPlease rate a card.";
+            percentage = 50;
+            emoticon.style.left = `${percentage - 50}%`;
+            emoticon.className = "move";
         }
     }
 
@@ -47,7 +57,7 @@ window.onload = () => {
         ratings.push(0);
 
         let sparks = [];
-        for (let i = 0; i < 4; i++) {
+        for (let i = 0; i < sparksPerRow; i++) {
             let spark = document.createElement("div");
             spark.className = "spark off";
             itemSparkRow.appendChild(spark);
@@ -62,11 +72,12 @@ window.onload = () => {
                     spark.className = enabled;
                 }
                 ratings[itemSparkRow.currentId] = sparkIndex + 1;
+                console.log(" ");
                 console.log(
-                    `Rated card ${itemSparkRow.currentId + 1} with ${ratings[itemSparkRow.currentId]
+                    `Upvoted card ${itemSparkRow.currentId + 1} with ${ratings[itemSparkRow.currentId]
                     } sparks!`
                 );
-                console.log(ratings);
+                console.log("The updated ratings are:", ratings);
                 averageRating(ratings);
             }
 
@@ -76,11 +87,13 @@ window.onload = () => {
                     spark.className = disabled;
                 }
                 ratings[itemSparkRow.currentId] = sparkIndex;
+                console.log(" ");
                 console.log(
-                    `Rated card ${itemSparkRow.currentId + 1} with ${ratings[itemSparkRow.currentId]
-                    } sparks!`
+                    `Downvoted rating of card ${itemSparkRow.currentId + 1} to ${ratings[itemSparkRow.currentId]
+                    } sparks ${ratings[itemSparkRow.currentId] === 0 ? "and unselected it" : ""
+                    }!`
                 );
-                console.log(ratings);
+                console.log("The updated ratings are:", ratings);
                 averageRating(ratings);
             }
 
@@ -164,6 +177,7 @@ window.onload = () => {
         let cardMargin = parseFloat(window.getComputedStyle(cards[0]).marginLeft);
         let cardTotalWidth = cardWidth + 2 * cardMargin;
 
+        console.log(" ");
         console.log(`Moved ${swipeDistance}px`);
         carousel.className = "move";
 
@@ -274,6 +288,13 @@ window.onload = () => {
     container.addEventListener("transitionend", (e) => {
         positionCards();
     });
+
+    let emoticon = document.getElementById("emoticon");
+    emoticon.className = "";
+
+    emoticon.addEventListener("transitionend", (e) => {
+        emoticon.className = "";
+    })
 
     window.addEventListener("resize", (e) => {
         positionCards();
