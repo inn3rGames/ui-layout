@@ -6,8 +6,6 @@ window.onload = () => {
         "url(./assets/images/SampleItem.png)",
     ];
 
-    let cards = [];
-
     if (localStorage.getItem("ratings") === null) {
         let freshRatings = [];
         for (let i = 0; i < imagesLocations.length; i++) {
@@ -17,43 +15,28 @@ window.onload = () => {
     }
     let ratings = JSON.parse(localStorage.getItem("ratings"));
 
+    if (localStorage.getItem("cardIndex") === null) {
+        localStorage.setItem("cardIndex", JSON.stringify(1));
+    }
+    let cardIndex = JSON.parse(localStorage.getItem("cardIndex"));
+
+    let cards = [];
     let sparksPerRow = 4;
 
-    function averageRating(ratings, firstRun) {
-        localStorage.setItem("ratings", JSON.stringify(ratings));
+    let container = document.getElementById("carousel-container");
+    let carousel = document.getElementById("carousel");
+    let emoticon = document.getElementById("emoticon");
+    emoticon.className = "";
 
-        let ratingAverage = document.getElementById("rating-average-text");
-        let emoticon = document.getElementById("emoticon");
-        let ratingSum = 0;
-        let countRatings = 0;
-        let average = 0;
-        let percentage = 0;
-        for (let i = 0; i < ratings.length; i++) {
-            if (ratings[i] > 0) {
-                ratingSum += ratings[i];
-                countRatings += 1;
-            }
-        }
+    let isPointerDown = false;
+    let startX;
+    let carouselStartX;
 
-        if (countRatings > 0) {
-            average = Math.floor((ratingSum / countRatings) * 100) / 100;
-            ratingAverage.textContent = `${countRatings} card(s) rated.\nAverage sparks:    ${average}!`;
-            percentage = Math.floor((average / sparksPerRow) * 100);
-            emoticon.style.left = `${percentage - 50}%`;
-            if (firstRun === true) {
-                emoticon.className = "";
-            } else {
-                emoticon.className = "move";
-            }
-        }
-
-        if (countRatings === 0) {
-            ratingAverage.textContent = "No card rated.\nPlease rate a card.";
-            percentage = 0;
-            emoticon.style.left = `${percentage - 50}%`;
-            emoticon.className = "move";
-        }
+    for (let i = 0; i < imagesLocations.length; i++) {
+        createCard(imagesLocations[i], i);
     }
+    averageRating(ratings, true);
+    positionCards();
 
     function createCard(imageURL, currentId) {
         let itemCard = document.createElement("div");
@@ -160,35 +143,64 @@ window.onload = () => {
         cards.push(itemCard);
     }
 
-    for (let i = 0; i < imagesLocations.length; i++) {
-        createCard(imagesLocations[i], i);
+    function averageRating(ratings, firstRun) {
+        localStorage.setItem("ratings", JSON.stringify(ratings));
+
+        let ratingAverage = document.getElementById("rating-average-text");
+        let emoticon = document.getElementById("emoticon");
+        let ratingSum = 0;
+        let countRatings = 0;
+        let average = 0;
+        let percentage = 0;
+        for (let i = 0; i < ratings.length; i++) {
+            if (ratings[i] > 0) {
+                ratingSum += ratings[i];
+                countRatings += 1;
+            }
+        }
+
+        if (countRatings > 0) {
+            average = Math.floor((ratingSum / countRatings) * 100) / 100;
+            ratingAverage.textContent = `${countRatings} card(s) rated.\nAverage sparks:    ${average}!`;
+            percentage = Math.floor((average / sparksPerRow) * 100);
+            emoticon.style.left = `${percentage - 50}%`;
+            if (firstRun === true) {
+                emoticon.className = "";
+            } else {
+                emoticon.className = "move";
+            }
+        }
+
+        if (countRatings === 0) {
+            ratingAverage.textContent = "No card rated.\nPlease rate a card.";
+            percentage = 0;
+            emoticon.style.left = `${percentage - 50}%`;
+            emoticon.className = "move";
+        }
     }
 
-    averageRating(ratings, true);
-
-    let container = document.getElementById("carousel-container");
-    let carousel = document.getElementById("carousel");
-
-    let isPointerDown = false;
-    let startX;
-    let carouselStartX;
-
-    if (localStorage.getItem("cardIndex") === null) {
-        localStorage.setItem("cardIndex", JSON.stringify(1));
+    function positionCards() {
+        setCardsClass();
+        carousel.className = "";
+        let cardWidth = parseFloat(window.getComputedStyle(cards[0]).width);
+        let cardMargin = parseFloat(window.getComputedStyle(cards[0]).marginLeft);
+        let cardTotalWidth = cardWidth + 2 * cardMargin;
+        carousel.style.left = `${-cardIndex * cardTotalWidth}px`;
     }
 
-    let cardIndex = JSON.parse(localStorage.getItem("cardIndex"));
-
-    function down(currentPointerX) {
-        isPointerDown = true;
-        startX = currentPointerX;
-        carouselStartX = parseFloat(window.getComputedStyle(carousel).left);
-        container.style.cursor = "grabbing";
-    }
-
-    function leave() {
-        isPointerDown = false;
-        container.style.cursor = "grab";
+    function setCardsClass() {
+        for (let i = 0; i < cards.length; i++) {
+            let itemButtons = Array.from(
+                cards[i].getElementsByClassName("item-buttons")
+            )[0];
+            if (i === cardIndex) {
+                cards[i].className = "item-card";
+                itemButtons.className = "item-buttons opacity-on";
+            } else {
+                cards[i].className = "item-card small";
+                itemButtons.className = "item-buttons opacity-off";
+            }
+        }
     }
 
     function computeSwipe() {
@@ -258,6 +270,18 @@ window.onload = () => {
         }
     }
 
+    function down(currentPointerX) {
+        isPointerDown = true;
+        startX = currentPointerX;
+        carouselStartX = parseFloat(window.getComputedStyle(carousel).left);
+        container.style.cursor = "grabbing";
+    }
+
+    function leave() {
+        isPointerDown = false;
+        container.style.cursor = "grab";
+    }
+
     function up() {
         isPointerDown = false;
         container.style.cursor = "grab";
@@ -272,32 +296,6 @@ window.onload = () => {
             return;
         }
     }
-
-    function setCardsClass() {
-        for (let i = 0; i < cards.length; i++) {
-            let itemButtons = Array.from(
-                cards[i].getElementsByClassName("item-buttons")
-            )[0];
-            if (i === cardIndex) {
-                cards[i].className = "item-card";
-                itemButtons.className = "item-buttons opacity-on";
-            } else {
-                cards[i].className = "item-card small";
-                itemButtons.className = "item-buttons opacity-off";
-            }
-        }
-    }
-
-    function positionCards() {
-        setCardsClass();
-        carousel.className = "";
-        let cardWidth = parseFloat(window.getComputedStyle(cards[0]).width);
-        let cardMargin = parseFloat(window.getComputedStyle(cards[0]).marginLeft);
-        let cardTotalWidth = cardWidth + 2 * cardMargin;
-        carousel.style.left = `${-cardIndex * cardTotalWidth}px`;
-    }
-
-    positionCards();
 
     container.addEventListener("mousedown", (e) => {
         down(e.clientX);
@@ -334,9 +332,6 @@ window.onload = () => {
     container.addEventListener("transitionend", (e) => {
         positionCards();
     });
-
-    let emoticon = document.getElementById("emoticon");
-    emoticon.className = "";
 
     emoticon.addEventListener("transitionend", (e) => {
         emoticon.className = "";
