@@ -27,14 +27,14 @@ window.onload = () => {
         if (countRatings > 0) {
             average = Math.floor((ratingSum / countRatings) * 100) / 100;
             ratingAverage.textContent = `${countRatings} card(s) rated.\nAverage sparks:    ${average}!`;
-            percentage = Math.floor(((average - 1) / (sparksPerRow - 1)) * 100);
+            percentage = Math.floor((average / sparksPerRow) * 100);
             emoticon.style.left = `${percentage - 50}%`;
             emoticon.className = "move";
         }
 
         if (countRatings === 0) {
             ratingAverage.textContent = "No card rated.\nPlease rate a card.";
-            percentage = 50;
+            percentage = 0;
             emoticon.style.left = `${percentage - 50}%`;
             emoticon.className = "move";
         }
@@ -294,7 +294,7 @@ window.onload = () => {
 
     emoticon.addEventListener("transitionend", (e) => {
         emoticon.className = "";
-    })
+    });
 
     window.addEventListener("resize", (e) => {
         positionCards();

@@ -135,6 +135,7 @@ body::after {
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center center;
+  left: -50%;
 }
 
 #rating-average {
