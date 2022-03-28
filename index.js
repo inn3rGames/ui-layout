@@ -208,11 +208,27 @@ window.onload = () => {
             carousel.style.left = `${carouselStartX}px`;
         }
 
+        let itemButtons = Array.from(
+            cards[cardIndex].getElementsByClassName("item-buttons")
+        )[0];
         cards[cardIndex].className = "item-card move";
+
+        itemButtons.className = "item-buttons opacity-on move";
+
         if (cards[cardIndex - 1] !== undefined) {
+            let itemButtonsPrevious = Array.from(
+                cards[cardIndex - 1].getElementsByClassName("item-buttons")
+            )[0];
+            itemButtonsPrevious.className = "item-buttons opacity-off move";
+
             cards[cardIndex - 1].className = "item-card small move";
         }
         if (cards[cardIndex + 1] !== undefined) {
+            let itemButtonsNext = Array.from(
+                cards[cardIndex + 1].getElementsByClassName("item-buttons")
+            )[0];
+            itemButtonsNext.className = "item-buttons opacity-off move";
+
             cards[cardIndex + 1].className = "item-card small move";
         }
     }
@@ -234,10 +250,15 @@ window.onload = () => {
 
     function setCardsClass() {
         for (let i = 0; i < cards.length; i++) {
+            let itemButtons = Array.from(
+                cards[i].getElementsByClassName("item-buttons")
+            )[0];
             if (i === cardIndex) {
                 cards[i].className = "item-card";
+                itemButtons.className = "item-buttons opacity-on";
             } else {
                 cards[i].className = "item-card small";
+                itemButtons.className = "item-buttons opacity-off";
             }
         }
     }

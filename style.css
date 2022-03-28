@@ -277,6 +277,14 @@ body::after {
   margin-top: 15px;
 }
 
+.opacity-off {
+  opacity: 0;
+}
+
+.opacity-on {
+  opacity: 100;
+}
+
 .left-button {
   width: 100px;
   height: 50px;
