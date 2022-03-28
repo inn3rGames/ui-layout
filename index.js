@@ -7,10 +7,21 @@ window.onload = () => {
     ];
 
     let cards = [];
-    let ratings = [];
+
+    if (localStorage.getItem("ratings") === null) {
+        let freshRatings = [];
+        for (let i = 0; i < imagesLocations.length; i++) {
+            freshRatings.push(0);
+        }
+        localStorage.setItem("ratings", JSON.stringify(freshRatings));
+    }
+    let ratings = JSON.parse(localStorage.getItem("ratings"));
+
     let sparksPerRow = 4;
 
     function averageRating(ratings) {
+        localStorage.setItem("ratings", JSON.stringify(ratings));
+
         let ratingAverage = document.getElementById("rating-average-text");
         let emoticon = document.getElementById("emoticon");
         let ratingSum = 0;
@@ -54,12 +65,17 @@ window.onload = () => {
         itemSparkRow.className = "item-spark-row";
         itemCard.appendChild(itemSparkRow);
         itemSparkRow.currentId = currentId;
-        ratings.push(0);
 
         let sparks = [];
         for (let i = 0; i < sparksPerRow; i++) {
             let spark = document.createElement("div");
-            spark.className = "spark off";
+            if (ratings[currentId] - 1 >= i) {
+                spark.className = "spark on";
+            }
+            else {
+                spark.className = "spark off";
+            }
+            
             itemSparkRow.appendChild(spark);
 
             let sparkIndex = i;
@@ -153,7 +169,12 @@ window.onload = () => {
     let isPointerDown = false;
     let startX;
     let carouselStartX;
-    let cardIndex = 1;
+
+    if (localStorage.getItem("cardIndex") === null) {
+        localStorage.setItem("cardIndex", JSON.stringify(1));
+    }
+
+    let cardIndex = JSON.parse(localStorage.getItem("cardIndex"));
 
     function down(currentPointerX) {
         isPointerDown = true;
@@ -208,28 +229,29 @@ window.onload = () => {
             carousel.style.left = `${carouselStartX}px`;
         }
 
+        localStorage.setItem("cardIndex", JSON.stringify(cardIndex));
+
+        cards[cardIndex].className = "item-card move";
         let itemButtons = Array.from(
             cards[cardIndex].getElementsByClassName("item-buttons")
         )[0];
-        cards[cardIndex].className = "item-card move";
-
         itemButtons.className = "item-buttons opacity-on move";
 
         if (cards[cardIndex - 1] !== undefined) {
+            cards[cardIndex - 1].className = "item-card small move";
+
             let itemButtonsPrevious = Array.from(
                 cards[cardIndex - 1].getElementsByClassName("item-buttons")
             )[0];
             itemButtonsPrevious.className = "item-buttons opacity-off move";
-
-            cards[cardIndex - 1].className = "item-card small move";
         }
         if (cards[cardIndex + 1] !== undefined) {
+            cards[cardIndex + 1].className = "item-card small move";
+
             let itemButtonsNext = Array.from(
                 cards[cardIndex + 1].getElementsByClassName("item-buttons")
             )[0];
             itemButtonsNext.className = "item-buttons opacity-off move";
-
-            cards[cardIndex + 1].className = "item-card small move";
         }
     }
 
