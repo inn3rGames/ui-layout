@@ -20,9 +20,6 @@ window.onload = () => {
     }
     let cardIndex = JSON.parse(localStorage.getItem("cardIndex"));
 
-    let cards = [];
-    let sparksPerRow = 4;
-
     let container = document.getElementById("carousel-container");
     let carousel = document.getElementById("carousel");
     let emoticon = document.getElementById("emoticon");
@@ -31,6 +28,9 @@ window.onload = () => {
     let isPointerDown = false;
     let startX;
     let carouselStartX;
+
+    let cards = [];
+    let sparksPerRow = 4;
 
     for (let i = 0; i < imagesLocations.length; i++) {
         createCard(imagesLocations[i], i);
@@ -147,7 +147,6 @@ window.onload = () => {
         localStorage.setItem("ratings", JSON.stringify(ratings));
 
         let ratingAverage = document.getElementById("rating-average-text");
-        let emoticon = document.getElementById("emoticon");
         let ratingSum = 0;
         let countRatings = 0;
         let average = 0;
