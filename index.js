@@ -41,12 +41,10 @@ window.onload = () => {
             percentage = Math.floor((average / sparksPerRow) * 100);
             emoticon.style.left = `${percentage - 50}%`;
             if (firstRun === true) {
-              emoticon.className = "";
+                emoticon.className = "";
+            } else {
+                emoticon.className = "move";
             }
-            else {
-              emoticon.className = "move";
-            }
-            
         }
 
         if (countRatings === 0) {
@@ -77,11 +75,10 @@ window.onload = () => {
             let spark = document.createElement("div");
             if (ratings[currentId] - 1 >= i) {
                 spark.className = "spark on";
-            }
-            else {
+            } else {
                 spark.className = "spark off";
             }
-            
+
             itemSparkRow.appendChild(spark);
 
             let sparkIndex = i;
